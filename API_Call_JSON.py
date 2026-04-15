@@ -15,7 +15,7 @@ all_tickets = []  # Temporary list to store batches before writing
 
 while True:
     request_url = f'{url}?sysparm_limit={limit}&sysparm_offset={offset}&{filter_str}'
-    response = requests.get(request_url, auth=('resdash', 'Dm2UyFwX_ooixcpZ'), headers=headers)
+    response = requests.get(request_url, auth=('user', 'password'), headers=headers)
 
     if response.status_code != 200:
         raise ConnectionError(f'Error getting tickets, received status code: {response.status_code}')
