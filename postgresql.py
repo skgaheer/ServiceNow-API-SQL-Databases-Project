@@ -18,7 +18,7 @@ cursor = conn.cursor()
 
 # loop through json files
 for i in range(1, 22):  # 21 json files 
-    file_name = f"/Users/sgaheer/Downloads/ServiceNow/tickets/tickets_part_{i}.json"
+    file_name = f"~/Downloads/ServiceNow/tickets/tickets_part_{i}.json"
     with open(file_name, 'r') as file:
         datalist = json.load(file)
         
@@ -28,7 +28,7 @@ for i in range(1, 22):  # 21 json files
         
         # Extract the relevant fields
             ticket_number = data.get("number") # ticket number is always going to be there
-            short_discription = data.get("short_description", "") or None
+            short_description = data.get("short_description", "") or None
             assignment_group = data.get("assignment_group", {}).get("display_value", "") or None
             comments = data.get("comments", "") or None
             date_created = data.get("sys_created_on", "") or None
@@ -58,8 +58,8 @@ for i in range(1, 22):  # 21 json files
             try: 
             # inserton of data
                 cursor.execute(
-                    "INSERT INTO tickets (ticket_number, short_discription, assignment_group, comments, date_created, date_closed, business_duration) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                    (ticket_number, short_discription, assignment_group, comments, date_created, date_closed, business_duration)
+                    "INSERT INTO tickets (ticket_number, short_description, assignment_group, comments, date_created, date_closed, business_duration) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                    (ticket_number, short_description, assignment_group, comments, date_created, date_closed, business_duration)
                 )
             
             except psycopg2.Error as e:
@@ -71,5 +71,3 @@ for i in range(1, 22):  # 21 json files
             conn.commit()
 cursor.close()
 conn.close()
-
-# data is weird <- look at ticket number when having issue
